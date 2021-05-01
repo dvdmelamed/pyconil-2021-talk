@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "serverless-functions-base-path": "^1.0.32",
+    "serverless-localstack": "^0.4.30",
+    "serverless-python-requirements": "^5.1.1"
+  }
+}

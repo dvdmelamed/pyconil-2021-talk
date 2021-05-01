@@ -1,0 +1,7 @@
+.DS_Store
+.serverless
+node_modules
+
+# Ignore serverless manifest files
+serverless.manifest.json
+.serverless/manifest.json

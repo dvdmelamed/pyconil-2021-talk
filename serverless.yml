@@ -1,0 +1,47 @@
+service: http-endpoint
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: us-east-1
+  lambdaHashingVersion: 20201221
+  apiGateway:
+    shouldStartNameWithService: true
+
+plugins:
+  - serverless-localstack
+  - serverless-functions-base-path
+  - serverless-python-requirements
+
+custom:
+  functionsBasePath: functions
+  pythonRequirements:
+    dockerizePip: non-linux
+  localstack:
+    host: http://localhost
+    stages:
+      - local
+    endpoints:
+      APIGateway: http://localhost:4566
+      S3: http://localhost:4566
+      DynamoDB: http://localhost:4566
+      CloudFormation: http://localhost:4566
+      Elasticsearch: http://localhost:4566
+      ES: http://localhost:4566
+      SNS: http://localhost:4566
+      SQS: http://localhost:4566
+      Lambda: http://localhost:4566
+      Kinesis: http://localhost:4566
+
+functions:
+  currentTime:
+    handler: handler.get
+    memorySize: 512
+    events:
+      - http:
+          path: ping
+          method: get
+
+package:
+  exclude:
+    - node_modules/**

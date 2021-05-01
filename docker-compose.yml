@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  localstack:
+    container_name: "localstack"
+    image: localstack/localstack
+    ports:
+      - '4566-4597:4566-4597'
+    environment:
+      - SERVICES=serverless
+      - DEBUG=1
+      - AWS_DEFAULT_REGION=us-east-1
+      - DEFAULT_REGION=us-east-1
+      - EDGE_PORT=4566
+      - LAMBDA_EXECUTOR=docker-reuse
+      - LAMBDA_DOCKER_NETWORK=localstack-net
+    networks:
+      - localstack-net
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+networks:
+  localstack-net:
+    external:
+      name: localstack-net

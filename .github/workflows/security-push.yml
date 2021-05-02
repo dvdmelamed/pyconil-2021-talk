@@ -143,18 +143,3 @@ jobs:
         with:
           target: "${{ env.target_url }}"
           fail_action: true
-  GithubUsersWithoutMfa:
-    runs-on: ubuntu-latest
-    name: github-mfa-checker
-    steps:
-    - uses: actions/github-script@v4
-      with:
-        github-token: ${{secrets.MY_ORG_TOKEN}}
-        script: |
-          const result = await github.orgs.listMembers({org: "cbrix-dev", filter: "2fa_disabled"});
-          if (result['data'].length > 1) {
-            result['data'].forEach(function(obj) { 
-              console.log(obj['login'] + " does not have MFA enabled"); 
-            });
-          }
-          process.exit((result['data'].length > 1) ? 1 : 0);

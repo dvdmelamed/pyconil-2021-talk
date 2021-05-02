@@ -2,7 +2,7 @@ name: Security (schedule)
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/60 * * * *"
 
 jobs:
   GithubUsersWithoutMfa:
